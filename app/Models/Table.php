@@ -12,4 +12,10 @@ class Table extends Model
     protected $fillable = [
         'capacity'
     ];
+
+
+    public function reservations()
+    {
+        $this->belongsTo(Reservation::class);
+    }
 }
