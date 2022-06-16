@@ -19,7 +19,7 @@ return new class extends Migration
             $table->text('description');
             $table->integer('limit_per_day');
             $table->integer('quantity_available');
-            $table->float('discount');
+            $table->decimal('discount')->nullable();
             $table->timestamps();
         });
     }
