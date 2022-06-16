@@ -10,6 +10,8 @@ use App\Models\Reservation;
 use App\Models\Table;
 use Illuminate\Http\Request;
 use App\Traits\ApiTrait;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class ReservationsController extends Controller
 {
@@ -18,8 +20,17 @@ class ReservationsController extends Controller
     public function store(StoreReservationRequest $request)
     {
         // Table is booked in this date
-        $bookedUp           = Reservation::where('table_id',$request->table_id)
-                            ->where('from_time',$request->from_time)->first();
+        $bookedUp = DB::table('reservations')
+            ->where('table_id', $request->table_id)
+            ->where(
+                fn ($q) => $q->whereBetween('from_time', [$request->from_time, $request->to_time])
+                            ->orWhereBetween('to_time', [$request->from_time, $request->to_time])
+                            ->orWhere(
+                                fn ($q) => $q->where('from_time', '<=', $request->from_time)
+                                    ->where('to_time', '=>', $request->to_time) )
+            )->first();
+
+        // dd($bookedUp);
         //  See if table have free capacity
         $table              = Table::where('id',$request->table_id)->first();
         $tableHaveRoom      = $table->capacity >= ( $table->reserved + $request->guests);

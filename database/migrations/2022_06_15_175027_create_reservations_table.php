@@ -25,7 +25,6 @@ return new class extends Migration
             ->references('id')->on('customer');
             $table->dateTime('from_time');
             $table->dateTime('to_time');
-            $table->timestamps();
         });
     }
 
