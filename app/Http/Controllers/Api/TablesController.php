@@ -17,9 +17,9 @@ class TablesController extends Controller
     public function store(StoreTableRequest $request)
     {
         // Create new table
-        $newTable    = Table::create([
-            'capacity' => $request->capacity
-        ]);
+        $credentials = Table::credentials($request);
+        $newTable    = Table::create($credentials);
+
         if($newTable)
         {
             return $this->returnData('data', new TableResource($newTable),'Table has been created.');

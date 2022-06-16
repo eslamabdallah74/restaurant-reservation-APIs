@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->integer('price');
             $table->text('description');
+            $table->integer('limit_per_day');
             $table->integer('quantity_available');
             $table->float('discount');
             $table->timestamps();

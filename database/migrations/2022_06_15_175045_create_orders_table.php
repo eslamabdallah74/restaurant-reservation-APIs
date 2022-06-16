@@ -27,7 +27,6 @@ return new class extends Migration
             $table->bigInteger('customer_id')->unsigned();
             $table->foreign('customer_id')
             ->references('id')->on('customer');
-
             $table->bigInteger('waiter_id')->unsigned();
             $table->integer('total');
             $table->integer('paid');

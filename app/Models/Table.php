@@ -13,6 +13,14 @@ class Table extends Model
         'capacity'
     ];
 
+    public static function credentials($request)
+    {
+        $credentials = [
+            'capacity' => $request->capacity
+        ];
+        
+        return $credentials;
+    }
 
     public function reservations()
     {
