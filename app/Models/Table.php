@@ -10,7 +10,8 @@ class Table extends Model
     use HasFactory;
     protected $table    = 'tables';
     protected $fillable = [
-        'capacity'
+        'capacity',
+        'reserved'
     ];
 
     public static function credentials($request)
@@ -18,12 +19,12 @@ class Table extends Model
         $credentials = [
             'capacity' => $request->capacity
         ];
-        
+
         return $credentials;
     }
 
     public function reservations()
     {
-        $this->belongsTo(Reservation::class);
+        return $this->hasMany(Reservation::class);
     }
 }

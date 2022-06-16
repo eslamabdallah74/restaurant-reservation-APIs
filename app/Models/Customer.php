@@ -27,7 +27,7 @@ class Customer extends Model
 
     public function reservations()
     {
-        $this->belongsTo(Reservation::class);
+        return $this->belongsTo(Reservation::class);
     }
 
 }

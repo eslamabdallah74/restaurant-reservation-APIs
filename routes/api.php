@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\CustomerController;
+use App\Http\Controllers\Api\ReservationsController;
 use App\Http\Controllers\Api\TablesController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -22,3 +23,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/create-table',[TablesController::class,'store']);
 Route::post('/create-customer',[CustomerController::class,'store']);
+Route::post('/reserve_table',[ReservationsController::class,'store']);
