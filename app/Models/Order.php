@@ -34,7 +34,6 @@ class Order extends Model
             'waiter_id'         => $randomNumber,
             'total'             => $total,
             'date'              => Carbon::now()
-
         ];
 
         return $credentials;

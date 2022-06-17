@@ -14,6 +14,10 @@ class CheckoutResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'reservation'   => new ReservationResource($this),
+            'total'         => $this->order->sum('total'),
+
+        ];
     }
 }
