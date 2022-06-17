@@ -17,7 +17,6 @@ class TableResource extends JsonResource
         return [
             'id'        => $this->id,
             'capacity'  => $this->capacity,
-            'reserved'  => $this->reserved
         ];
     }
 }

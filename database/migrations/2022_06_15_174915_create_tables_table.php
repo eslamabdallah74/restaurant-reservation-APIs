@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('tables', function (Blueprint $table) {
             $table->id();
             $table->integer('capacity');
-            $table->integer('reserved')->default(0);
             $table->timestamps();
         });
     }

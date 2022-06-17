@@ -21,19 +21,22 @@ class ReservationsController extends Controller
     {
         // Table is booked in this date
         // I wont lie This Query was kinda trickey so i used my search skills
-        $bookedUp = DB::table('reservations')
-            ->where('table_id', $request->table_id)
-            ->where(
+        $bookedUp = Reservation::where('table_id', $request->table_id)->where(
                 fn ($q) => $q->whereBetween('from_time', [$request->from_time, $request->to_time])
                             ->orWhereBetween('to_time', [$request->from_time, $request->to_time])
                             ->orWhere(
-                                fn ($q) => $q->where('from_time', '<=', $request->from_time)
-                                    ->where('to_time', '=>', $request->to_time) )
-            )->first();
+                            fn ($q) => $q->where('from_time', '<=', $request->from_time)
+                            ->where('to_time', '=>', $request->to_time)
+                            ))->first();
 
         //  See if table has free capacity
         $table              = Table::where('id',$request->table_id)->first();
-        $HasFreeSpace      = $table->capacity >= ( $table->reserved + $request->guests);
+        if ($table)
+        {
+            $HasFreeSpace      = $table->capacity >= $request->guests;
+        } else {
+            return $this->returnError('Table is not found');
+        }
 
         if($bookedUp == null )
         {
@@ -42,12 +45,11 @@ class ReservationsController extends Controller
                 $credentials        = Reservation::credentials($request);
                 $newReservation     = Reservation::create($credentials);
                 $ReservationTable   = Reservation::where('table_id',$newReservation->table_id)->first();
-                // Add customer to the table
-                $ReservationTable->table->reserved = $ReservationTable->table->reserved + $request->guests;
-                $ReservationTable->push();
+
                 return $this->returnData('data', new ReservationResource($newReservation),'Reservation has been created.');
             } else {
-                return $this->returnError('Table is full or guests are over the maximum capacity');
+                $table              = Table::where('id',$request->table_id)->first();
+                return $this->returnError('Guests are over the maximum capacity, maximum capacity is ' . $table->capacity);
             }
         } else {
             // Add customer on waiting list

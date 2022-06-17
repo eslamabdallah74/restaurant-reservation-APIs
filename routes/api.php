@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\MealsController;
+use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\ReservationsController;
 use App\Http\Controllers\Api\TablesController;
 use Illuminate\Http\Request;
@@ -28,3 +29,6 @@ Route::post('/create-meal',[MealsController::class,'store']);
 // Returning Data
 
 Route::get('/menu',[MealsController::class,'allMeals']);
+
+// Order
+Route::post('/order',[OrderController::class,'order']);
