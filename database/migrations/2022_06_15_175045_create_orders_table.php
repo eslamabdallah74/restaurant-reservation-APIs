@@ -29,7 +29,7 @@ return new class extends Migration
             ->references('id')->on('customer');
             $table->bigInteger('waiter_id')->unsigned();
             $table->integer('total');
-            $table->integer('paid');
+            $table->boolean('paid')->default(false);
             $table->timestamp('date')->useCurrent();
         });
     }

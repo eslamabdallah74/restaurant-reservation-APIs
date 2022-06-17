@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CheckoutRequest;
 use App\Http\Requests\OrderRequest;
 use App\Http\Resources\OrderResource;
 use App\Models\Customer;
@@ -22,6 +23,12 @@ class OrderController extends Controller
     {
         $mealIDs= $request->meal_ids;
         $Reservation   = Reservation::where('id',$request->reservation_id)->first();
+        // if $Reservation id is not correct
+        if(!$Reservation)
+        {
+            return $this->returnError('Reservation not found');
+        }
+
         $TotalmealsPrice = null;
 
         foreach($mealIDs as $meal)
@@ -50,12 +57,6 @@ class OrderController extends Controller
                     return $this->returnError('Meal is not available now');
                 }
 
-                //  if paid less than total price throw error
-                if ($request->paid < $TotalmealsPrice)
-                {
-                    return $this->returnError('Paid is less than your check, you have to pay ' . $TotalmealsPrice);
-                }
-
                 // reduce meal quantity by one
                 $getMeal->update([
                     'quantity_available'    => $getMeal->quantity_available  -= 1,
@@ -82,4 +83,5 @@ class OrderController extends Controller
         return $this->returnData('data', new OrderResource($newOrder),'Order has been created.');
         // End
     }
+
 }

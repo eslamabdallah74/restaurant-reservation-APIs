@@ -38,6 +38,13 @@ class ReservationsController extends Controller
             return $this->returnError('Table is not found');
         }
 
+        // if customer doesn't exist throw error
+        if(!Customer::where('id',$request->customer_id)->first())
+        {
+            return $this->returnError('customer not found');
+        }
+
+
         if($bookedUp == null )
         {
             if ($HasFreeSpace)

@@ -25,7 +25,7 @@ class StoreCustomerRequest extends FormRequest
     {
         return [
             'name'       => 'required|min:2|max:22',
-            'phone'      => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10'
+            'phone'      => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10|max:12'
         ];
     }
 }

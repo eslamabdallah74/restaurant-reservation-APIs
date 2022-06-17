@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\CheckoutController;
 use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\MealsController;
 use App\Http\Controllers\Api\OrderController;
@@ -32,3 +33,7 @@ Route::get('/menu',[MealsController::class,'allMeals']);
 
 // Order
 Route::post('/order',[OrderController::class,'order']);
+
+// Checkout
+
+Route::post('/checkout',[CheckoutController::class,'checkout']);

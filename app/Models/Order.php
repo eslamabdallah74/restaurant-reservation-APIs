@@ -33,7 +33,6 @@ class Order extends Model
             'customer_id'       => $cusomter,
             'waiter_id'         => $randomNumber,
             'total'             => $total,
-            'paid'              => $request->paid,
             'date'              => Carbon::now()
 
         ];

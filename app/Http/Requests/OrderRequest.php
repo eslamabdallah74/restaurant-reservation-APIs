@@ -26,7 +26,6 @@ class OrderRequest extends FormRequest
         return [
             'meal_ids'             => 'required',
             'reservation_id'       => 'required|integer',
-            'paid'                 => 'required|integer',
 
         ];
     }
