@@ -26,7 +26,7 @@ class StoreReservationRequest extends FormRequest
         return [
             'table_id'    => 'required|integer',
             'customer_id' => 'required|integer',
-            'guests'      => 'required|min:1',
+            'guests'      => 'required|integer|min:1',
             'from_time'   => 'required|date|after:yesterday',
             'to_time'     => 'required|date|after:from_time'
         ];
