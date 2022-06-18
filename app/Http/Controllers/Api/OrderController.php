@@ -36,7 +36,6 @@ class OrderController extends Controller
             $getMeal                = Meal::where('id',$meal)->first();
             if ($getMeal !== null)
             {
-
                 // Get Meals Price After Discount [Total]
                 $PriceAfterDiscount     = $getMeal->price - ($getMeal->price * ($getMeal->discount / 100));
                 $TotalmealsPrice        += $PriceAfterDiscount;

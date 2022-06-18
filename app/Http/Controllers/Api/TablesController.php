@@ -20,11 +20,7 @@ class TablesController extends Controller
         $credentials = Table::credentials($request);
         $newTable    = Table::create($credentials);
 
-        if($newTable)
-        {
-            return $this->returnData('data', new TableResource($newTable),'Table has been created.');
-        } else {
-            return $this->returnError('failed');
-        }
+        return $this->returnData('data', new TableResource($newTable),'Table has been created.');
     }
+    
 }

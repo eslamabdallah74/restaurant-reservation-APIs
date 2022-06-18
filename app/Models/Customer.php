@@ -25,9 +25,4 @@ class Customer extends Model
         return $credentials;
     }
 
-    // public function reservations()
-    // {
-    //     return $this->belongsTo(Reservation::class);
-    // }
-
 }

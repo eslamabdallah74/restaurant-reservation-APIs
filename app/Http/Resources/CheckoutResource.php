@@ -17,7 +17,6 @@ class CheckoutResource extends JsonResource
         return [
             'reservation'   => new ReservationResource($this),
             'total'         => $this->order->sum('total'),
-
         ];
     }
 }

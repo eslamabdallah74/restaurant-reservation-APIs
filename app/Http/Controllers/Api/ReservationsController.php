@@ -19,7 +19,7 @@ class ReservationsController extends Controller
 
     public function store(StoreReservationRequest $request)
     {
-        // Table is booked in this date
+        // Get table is booked in this date
         // I wont lie This Query was kinda trickey so i used my search skills
         $bookedUp = Reservation::where('table_id', $request->table_id)->where(
                 fn ($q) => $q->whereBetween('from_time', [$request->from_time, $request->to_time])
@@ -30,10 +30,10 @@ class ReservationsController extends Controller
                             ))->first();
 
         //  See if table has free capacity
-        $table              = Table::where('id',$request->table_id)->first();
+        $table                = Table::where('id',$request->table_id)->first();
         if ($table)
         {
-            $HasFreeSpace      = $table->capacity >= $request->guests;
+            $HasFreeSpace     = $table->capacity >= $request->guests;
         } else {
             return $this->returnError('Table is not found');
         }
@@ -49,9 +49,9 @@ class ReservationsController extends Controller
         {
             if ($HasFreeSpace)
             {
+                // Make a $Reservation
                 $credentials        = Reservation::credentials($request);
                 $newReservation     = Reservation::create($credentials);
-                $ReservationTable   = Reservation::where('table_id',$newReservation->table_id)->first();
 
                 return $this->returnData('data', new ReservationResource($newReservation),'Reservation has been created.');
             } else {

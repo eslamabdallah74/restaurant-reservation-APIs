@@ -18,7 +18,6 @@ class MealsController extends Controller
     {
         $Meals  = Meal::all();
         return $this->returnData('data', MealResource::collection($Meals),'All meals');
-
     }
 
     public function store(StoreMealRequest $request)
