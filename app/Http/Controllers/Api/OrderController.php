@@ -48,13 +48,13 @@ class OrderController extends Controller
                 // If the meal reaches the maximum per day dont serve it throw error
                 if ($OrderdMeal->count() == $getMeal->limit_per_day)
                 {
-                    return $this->returnError('Meal reached max serve per day');
+                    return $this->returnError('Meal reached max serve per day, ID ' . $getMeal->id);
                 }
 
                 // If meal quantity is 0
                 if ($getMeal->quantity_available < 1)
                 {
-                    return $this->returnError('Meal is not available now');
+                    return $this->returnError('Meal is not available now, ID ' . $getMeal->id);
                 }
 
                 // reduce meal quantity by one
