@@ -24,7 +24,7 @@ class StoreTableRequest extends FormRequest
     public function rules()
     {
         return [
-            'capacity' => 'required|integer|min:1|max:2|not_in:0'
+            'capacity' => 'required|integer|min:1|not_in:0'
         ];
     }
 }
